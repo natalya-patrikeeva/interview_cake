@@ -77,44 +77,25 @@ class Change:
         print "memo", self.memo
         return num_possibilities
 
-# Efficient solution - O(n) space
+# Efficient solution - O(n) space and O(n * m) time
 # Bottom-up
-def change_possibilities_bottom_up(amount, denominations, index=0):
+def change_possibilities_bottom_up(amount, denominations):
+    ways_of_doing_n_cents = [0] * (amount + 1)
+    ways_of_doing_n_cents[0] = 1
 
-    # num_possibilities = 0
-    # for coin in denominations:
-    #     print "using %i coin" % coin
-    #
-    #     if (amount % coin == 0) :
-    #         num_possibilities += 1
-    #
-    #         max_number_times_to_use_coin = amount / coin
-    #
-    #         for i in range(1, max_number_times_to_use_coin):
-    #             print "outer i", i
-    #             leftover_coins = denominations[index + 1:]
-    #
-    #             for other_coin in leftover_coins:
-    #                 print "other coin", other_coin
-    #
-    #                 if (i*coin + other_coin == amount):
-    #                     num_possibilities += 1
-    #                     print "num_possibilities", num_possibilities
-    #
-    #     else:
-    #         max_number_times_to_use_coin = int(amount / coin)
-    #
-    #     index += 1
-    #
-    # return num_possibilities
+    for coin in denominations:
+        for higher_amount in range(coin, amount + 1):
+            higher_amount_remainder = higher_amount - coin
+            ways_of_doing_n_cents[higher_amount] += ways_of_doing_n_cents[higher_amount_remainder]
 
+    return ways_of_doing_n_cents[amount]
 # Test
 # Should output 3
-# print(change_possibilities_top_down(4, [1, 2]))
+print(change_possibilities_top_down(4, [1, 2]))
 
 # Should output 4
-# print(change_possibilities_top_down(4, [1, 2, 3]))
+print(change_possibilities_top_down(4, [1, 2, 3]))
 
 # print(Change().change_possibilities_memoize(4, [1, 2, 3]))
 
-print(change_possibilities_bottom_up(5, [1, 2]))
+print(change_possibilities_bottom_up(5, [1, 3, 5]))
