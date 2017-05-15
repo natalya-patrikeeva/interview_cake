@@ -5,6 +5,8 @@
 # Depth-first search to reach leaves faster
 # Keep track of every leaf depth
 # If more than 2 depths or 2 depths but their difference > 1, return False
+
+# O(n) time and O(n) space
 def is_superbalanced(root) :
 
     if not root:
@@ -13,6 +15,7 @@ def is_superbalanced(root) :
     nodes = []
 
     # Save node visited and its depth starting at a root node with depth 0
+    # Use a stack to store tuples 
     nodes.append( (root, 0) )
 
     # Keep track of depths
@@ -22,7 +25,7 @@ def is_superbalanced(root) :
     while len(nodes) :
         print "len(nodes)", len(nodes)
         node, depth = nodes.pop()
-        print "node, depth", node, depth
+        print "node, depth", node.value, depth
 
         # Leaf node if it doesn't have descendants
         if (not node.left) and (not node.right):
