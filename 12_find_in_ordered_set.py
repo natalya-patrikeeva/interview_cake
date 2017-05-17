@@ -4,10 +4,10 @@
 # Use binary search to find the item in O(lg(n)) time and O(1) additional space.
 def binary_search(target, nums):
 
-    floor = -1
+    floor = 0
     ceiling = len(nums)
 
-    while floor + 1 < ceiling :
+    while floor < ceiling :
         guess_index = ( floor + ceiling ) / 2
 
         if target == nums[guess_index]:
@@ -26,5 +26,5 @@ def binary_search(target, nums):
     return False
 
 # Test
-nums = [1, 7, 10, 90]
+nums = [3,1]
 print(binary_search(1, nums))
